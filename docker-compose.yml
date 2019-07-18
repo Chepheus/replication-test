@@ -1,0 +1,62 @@
+version: '3.5'
+
+services:
+  master:
+    image: mysql:5.7
+    container_name: mysql-master
+    ports:
+      - 3311:3306
+    networks:
+      custom_network:
+        ipv4_address: 172.30.0.11
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    volumes:
+      - ./data-master:/var/lib/mysql
+      - ./configs/master.cnf:/etc/mysql/conf.d/master.cnf
+
+  slave1:
+    image: mysql:5.7
+    container_name: mysql-slave1
+    ports:
+      - 3312:3306
+    networks:
+      custom_network:
+        ipv4_address: 172.30.0.12
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    volumes:
+      - ./data-slave1:/var/lib/mysql
+      - ./configs/slave1.cnf:/etc/mysql/conf.d/master.cnf
+
+  slave2:
+    image: mysql:5.7
+    container_name: mysql-slave2
+    ports:
+      - 3313:3306
+    networks:
+      custom_network:
+        ipv4_address: 172.30.0.13
+    environment:
+      - MYSQL_ROOT_PASSWORD=test
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=test
+      - MYSQL_PASSWORD=test
+    volumes:
+      - ./data-slave2:/var/lib/mysql
+      - ./configs/slave2.cnf:/etc/mysql/conf.d/master.cnf
+
+networks:
+  custom_network:
+    name: custom_network
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.30.0.0/24
