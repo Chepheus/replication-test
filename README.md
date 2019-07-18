@@ -31,7 +31,7 @@ To start you have to up docker containers:
 
 ### Result
 
-After creation table and some inserts I insert data to mysql-slave1 server and broke synchronization.
+After creation table and some inserts I insert data to mysql-slave2 server and broke synchronization.
 
 **mysql-master server**
 ![MASTER TASKS](images/4.png)
